@@ -68,11 +68,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  String generateDebug(PhonePlusState state, int date, String number){
-    return "<<<<<<<< $state >>>>>>>> ${DateTime.fromMillisecondsSinceEpoch(date)} $number \n";
+  String generateDebug(PhonePlusState state, DateTime date, String number){
+    return "<<<<<<<< $state >>>>>>>> $date $number \n";
   }
 
-  void updateStatus(PhonePlusState state, int date, String number) {
+  void updateStatus(PhonePlusState state, DateTime date, String number) {
     setState(() {
       String log = generateDebug(state, date, number);
       debugPrint(log);

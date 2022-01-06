@@ -1,6 +1,6 @@
 name: phone_plus
 description: A flutter plugin for accessing phone state in Android and iOS.
-version: 0.0.1+1
+version: 0.0.2
 repository: https://github.com/MorabaaSoftwareSolutions/phone_plus/tree/master
 issue_tracker: https://github.com/MorabaaSoftwareSolutions/phone_plus/issues
 homepage: https://github.com/MorabaaSoftwareSolutions/phone_plus
