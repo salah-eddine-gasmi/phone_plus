@@ -70,7 +70,7 @@ class PhonePlusPlugin: FlutterPlugin, MethodCallHandler, BroadcastReceiver() {
               ?: "")
       if (phoneState != null && phoneNumber != "") {
         if (lastState == phoneState) {
-          //No change, debounce extras
+          // No change, debounce extras
           return
         }
         Log.d("CallObserver", "State Changed>>>>>> $phoneState")
@@ -78,38 +78,56 @@ class PhonePlusPlugin: FlutterPlugin, MethodCallHandler, BroadcastReceiver() {
         if(phoneNumber!="") arguments["Number"] = phoneNumber
         if (TelephonyManager.EXTRA_STATE_RINGING == phoneState) {
           isIncoming = true
-          //
           lastState = TelephonyManager.EXTRA_STATE_RINGING
           onIncomingCallReceived()
         } else if (TelephonyManager.EXTRA_STATE_IDLE == phoneState) {
           if (lastState == TelephonyManager.EXTRA_STATE_RINGING) {
-            //
             lastState = TelephonyManager.EXTRA_STATE_IDLE
             onMissedCall()
           } else {
             if (isIncoming) {
-              //
               lastState = TelephonyManager.EXTRA_STATE_IDLE
               onIncomingCallEnded()
             } else {
-              //
               lastState = TelephonyManager.EXTRA_STATE_IDLE
               onOutgoingCallEnded()
             }
           }
         } else if (TelephonyManager.EXTRA_STATE_OFFHOOK == phoneState) {
           isIncoming = lastState.equals(TelephonyManager.EXTRA_STATE_RINGING)
-          //
           lastState = TelephonyManager.EXTRA_STATE_OFFHOOK
           if(isIncoming) {
             onIncomingCallAnswered()
           } else {
             onOutgoingCallStarted()
           }
+        } else if (phoneState == "RINGING") {
+          // Ringing state for outgoing call
+          onOutgoingCallRinging()
+        } else if (phoneState == "DIALING") {
+          // Dialing state for outgoing call
+          onOutgoingCallDialing()
+        } else if (phoneState == "CANCELLED") {
+          // Call cancelled state for outgoing call
+          onOutgoingCallCancelled()
+        } else if (phoneState == "ERROR") {
+          // Call error state for outgoing call
+          onOutgoingCallError()
+        } else if (phoneState == "CONNECTING") {
+          // Call connecting state for outgoing call
+          onOutgoingCallConnecting()
+        } else if (phoneState == "CONNECTED") {
+          // Call connected state for outgoing call
+          onOutgoingCallConnected()
+        } else if (phoneState == "TIMED_OUT") {
+          // Call timed out state for outgoing call
+          onOutgoingCallTimedOut()
+        } else if (phoneState == "DISCONNECTED") {
+          // Call disconnected state for outgoing call
+          onOutgoingCallDisconnected()
         }
       }
     }
-
   }
 
   private fun onIncomingCallReceived() {
@@ -132,6 +150,46 @@ class PhonePlusPlugin: FlutterPlugin, MethodCallHandler, BroadcastReceiver() {
   private fun onOutgoingCallEnded() {
     Log.d("CallObserver", "onOutgoingCallEnded  :   number is  : ${arguments["Number"]}")
     methodChannel.invokeMethod("onOutgoingCallEnded", arguments)
+  }
+
+  private fun onOutgoingCallRinging() {
+    Log.d("CallObserver", "onOutgoingCallRinging  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallRinging", arguments)
+  }
+
+  private fun onOutgoingCallDialing() {
+    Log.d("CallObserver", "onOutgoingCallDialing  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallDialing", arguments)
+  }
+
+  private fun onOutgoingCallCancelled() {
+    Log.d("CallObserver", "onOutgoingCallCancelled  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallCancelled", arguments)
+  }
+
+  private fun onOutgoingCallError() {
+    Log.d("CallObserver", "onOutgoingCallError  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallError", arguments)
+  }
+
+  private fun onOutgoingCallConnecting() {
+    Log.d("CallObserver", "onOutgoingCallConnecting  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallConnecting", arguments)
+  }
+
+  private fun onOutgoingCallConnected() {
+    Log.d("CallObserver", "onOutgoingCallConnected  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallConnected", arguments)
+  }
+
+  private fun onOutgoingCallTimedOut() {
+    Log.d("CallObserver", "onOutgoingCallTimedOut  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallTimedOut", arguments)
+  }
+
+  private fun onOutgoingCallDisconnected() {
+    Log.d("CallObserver", "onOutgoingCallDisconnected  :   number is  : ${arguments["Number"]}")
+    methodChannel.invokeMethod("onOutgoingCallDisconnected", arguments)
   }
 
   private fun onMissedCall() {
