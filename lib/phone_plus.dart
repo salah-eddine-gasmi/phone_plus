@@ -14,6 +14,14 @@ class PhonePlus {
   Function(DateTime date, String number)? outgoingCallStartedHandler;
   Function(DateTime date, String number)? outgoingCallEndedHandler;
   Function(DateTime date, String number)? missedCallHandler;
+  Function(DateTime date, String number)? outgoingCallRingingHandler;
+  Function(DateTime date, String number)? outgoingCallDialingHandler;
+  Function(DateTime date, String number)? outgoingCallCancelledHandler;
+  Function(DateTime date, String number)? outgoingCallErrorHandler;
+  Function(DateTime date, String number)? outgoingCallConnectingHandler;
+  Function(DateTime date, String number)? outgoingCallConnectedHandler;
+  Function(DateTime date, String number)? outgoingCallTimedOutHandler;
+  Function(DateTime date, String number)? outgoingCallDisconnectedHandler;
   ErrorHandler? errorHandler;
 
   PhonePlus() {
@@ -50,6 +58,46 @@ class PhonePlus {
 
   void setMissedCallHandler(Function(DateTime date, String number) handler) {
     missedCallHandler = handler;
+  }
+
+  void setOutgoingCallRingingHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallRingingHandler = handler;
+  }
+
+  void setOutgoingCallDialingHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallDialingHandler = handler;
+  }
+
+  void setOutgoingCallCancelledHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallCancelledHandler = handler;
+  }
+
+  void setOutgoingCallErrorHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallErrorHandler = handler;
+  }
+
+  void setOutgoingCallConnectingHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallConnectingHandler = handler;
+  }
+
+  void setOutgoingCallConnectedHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallConnectedHandler = handler;
+  }
+
+  void setOutgoingCallTimedOutHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallTimedOutHandler = handler;
+  }
+
+  void setOutgoingCallDisconnectedHandler(
+      Function(DateTime date, String number) handler) {
+    outgoingCallDisconnectedHandler = handler;
   }
 
   void setErrorHandler(ErrorHandler handler) {
@@ -94,9 +142,58 @@ class PhonePlus {
               call.arguments["Number"]);
         }
         break;
-      case "onMissedCall":
-        if (missedCallHandler != null) {
-          missedCallHandler!(
+      case "onOutgoingCallRinging":
+        if (outgoingCallRingingHandler != null) {
+          outgoingCallRingingHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallDialing":
+        if (outgoingCallDialingHandler != null) {
+          outgoingCallDialingHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallCancelled":
+        if (outgoingCallCancelledHandler != null) {
+          outgoingCallCancelledHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallError":
+        if (outgoingCallErrorHandler != null) {
+          outgoingCallErrorHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallConnecting":
+        if (outgoingCallConnectingHandler != null) {
+          outgoingCallConnectingHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallConnected":
+        if (outgoingCallConnectedHandler != null) {
+          outgoingCallConnectedHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallTimedOut":
+        if (outgoingCallTimedOutHandler != null) {
+          outgoingCallTimedOutHandler!(
+              DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
+              call.arguments["Number"]);
+        }
+        break;
+      case "onOutgoingCallDisconnected":
+        if (outgoingCallDisconnectedHandler != null) {
+          outgoingCallDisconnectedHandler!(
               DateTime.fromMillisecondsSinceEpoch(call.arguments["Date"]),
               call.arguments["Number"]);
         }
